@@ -7,12 +7,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PaginaPruebaPage } from '../pages/pagina-prueba/pagina-prueba';
+import {MConexionesPage} from '../pages/m-conexiones/m-conexiones';
+import {MprincipalPage} from '../pages/mprincipal/mprincipal';
+import {IConexionPage} from '../pages/i-conexion/i-conexion';
+import {MTablasPage} from '../pages/m-tablas/m-tablas';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    PaginaPruebaPage
+    PaginaPruebaPage,
+    MConexionesPage,
+    MprincipalPage,
+    IConexionPage,
+    MTablasPage
   ],
   imports: [
     BrowserModule,
@@ -22,7 +30,11 @@ import { PaginaPruebaPage } from '../pages/pagina-prueba/pagina-prueba';
   entryComponents: [
     MyApp,
     HomePage,
-    PaginaPruebaPage
+    PaginaPruebaPage,
+    MConexionesPage,
+    MprincipalPage,
+    IConexionPage,
+    MTablasPage
   ],
   providers: [
     StatusBar,
