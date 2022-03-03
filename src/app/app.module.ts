@@ -11,6 +11,10 @@ import {MConexionesPage} from '../pages/m-conexiones/m-conexiones';
 import {MprincipalPage} from '../pages/mprincipal/mprincipal';
 import {IConexionPage} from '../pages/i-conexion/i-conexion';
 import {MTablasPage} from '../pages/m-tablas/m-tablas';
+import { ApiRisuProvider } from '../providers/api-risu/api-risu';
+
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +28,7 @@ import {MTablasPage} from '../pages/m-tablas/m-tablas';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -39,7 +44,8 @@ import {MTablasPage} from '../pages/m-tablas/m-tablas';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ApiRisuProvider
   ]
 })
 export class AppModule {}
