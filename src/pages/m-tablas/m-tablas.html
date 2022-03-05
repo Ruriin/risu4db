@@ -13,62 +13,12 @@
 <ion-content padding>
   <h1>Desliza hacia los lados derecha para ver las opciones</h1>
   <ion-list>
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let item of items">
       <ion-item>
         <ion-avatar item-start>
           <img src="../../assets/imgs/tabla-de-datos.png">
         </ion-avatar>
-        <h2>Nombre Base de Datos</h2>
-        <p>Direccion IP: 192.168.1.1</p>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary">
-            <ion-icon name="md-help"></ion-icon>
-            Consultar 
-          </button>
-          <button ion-button color="secondary">
-            <ion-icon name="md-brush"></ion-icon>
-            Modificar
-          </button>
-      </ion-item-options>
-      <ion-item-options side="left">
-        <button ion-button color="danger">
-            <ion-icon name="md-trash"></ion-icon>
-            Borrar
-          </button>
-        </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="../../assets/imgs/tabla-de-datos.png">
-        </ion-avatar>
-        <h2>Nombre Base de Datos</h2>
-        <p>Direccion IP: 192.168.1.1</p>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary">
-            <ion-icon name="md-help"></ion-icon>
-            Consultar 
-          </button>
-          <button ion-button color="secondary">
-            <ion-icon name="md-brush"></ion-icon>
-            Modificar
-          </button>
-      </ion-item-options>
-      <ion-item-options side="left">
-        <button ion-button color="danger">
-            <ion-icon name="md-trash"></ion-icon>
-            Borrar
-          </button>
-        </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="../../assets/imgs/tabla-de-datos.png">
-        </ion-avatar>
-        <h2>Nombre Base de Datos</h2>
+        <h2>{{item}}</h2>
         <p>Direccion IP: 192.168.1.1</p>
       </ion-item>
       <ion-item-options side="right">
@@ -89,6 +39,4 @@
         </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  
-  
 </ion-content>

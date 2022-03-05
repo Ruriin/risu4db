@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ApiRisuProvider } from "../../providers/api-risu/api-risu";
+
 
 /**
  * Generated class for the MTablasPage page.
@@ -15,11 +17,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MTablasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  items: Array<{nombre: string, host: string}>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiRisU: ApiRisuProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MTablasPage');
+    const datosConexion = JSON.parse(localStorage.getItem("conexionActual"));
+    this.infoDB(datosConexion[0]);
+
+  }
+
+  infoDB(datosConexion) {
+    this.apiRisU.obtenerBD(datosConexion).then(
+      (result) => {
+        this.items = JSON.parse(JSON.stringify(result));
+        console.log(this.items);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }
