@@ -19,15 +19,24 @@ export class MConexionesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MConexionesPage');
+  }
+
+
+  ionViewDidEnter() {
     this.items = JSON.parse(localStorage.getItem("listaConexiones"));
   }
 
   borrarConexion(item){
-  const listaAnterior = JSON.parse(localStorage.getItem('listaConexiones'));
-  const nuevaLista = listaAnterior.filter(({ nombre: x }) => x != item.nombre);
-  localStorage.setItem('listaConexiones', JSON.stringify(nuevaLista));
+
+
+    const listaAnterior = JSON.parse(localStorage.getItem('listaConexiones'));
+    const nuevaLista = listaAnterior.filter(({ nombre: x }) => x != item.nombre);
+    localStorage.setItem('listaConexiones', JSON.stringify(nuevaLista));
+    JSON.parse(localStorage.getItem('listaConexiones')).length < 1 ? localStorage.removeItem('conexionActual') : console.log("hay datos");
+    this.ionViewDidEnter();
   }
 
   conexionHost(item){

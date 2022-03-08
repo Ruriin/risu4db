@@ -24,9 +24,11 @@ export class MTablasPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MTablasPage');
-    const datosConexion = JSON.parse(localStorage.getItem("conexionActual"));
-    this.infoDB(datosConexion[0]);
+  }
 
+  ionViewDidEnter() {
+    const datosConexion = JSON.parse(localStorage.getItem("conexionActual"));
+    datosConexion != null ? this.infoDB(datosConexion[0]) : this.items = null;
   }
 
   infoDB(datosConexion) {
