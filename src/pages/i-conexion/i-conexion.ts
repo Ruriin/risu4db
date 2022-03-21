@@ -16,6 +16,7 @@ import { AlertController } from "ionic-angular";
   templateUrl: "i-conexion.html",
 })
 export class IConexionPage {
+  // Definicion de variables para obtener informacion
   datosConexion = {
     nombre: "",
     host: "",
@@ -27,11 +28,11 @@ export class IConexionPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiRisU: ApiRisuProvider, public alertCtrl: AlertController) {
     
   }
-
+// Metodo para cargar la pagina
   ionViewDidLoad() {
     console.log("ionViewDidLoad IConexionPage");
   }
-
+// Metodo de mostrar alerta
   showAlert(info) {
     const alert = this.alertCtrl.create({
       title: "¡Info!",
@@ -40,7 +41,7 @@ export class IConexionPage {
     });
     alert.present();
   }
-
+// Metodo probarConexion: Envia un conjunto de datos a la API para comprobar si la conexion es posible o las credenciales estan mal
   probarConexion() {
     this.apiRisU.pruebaConexion(this.datosConexion).then(
       (result) => {
@@ -51,7 +52,7 @@ export class IConexionPage {
       }
     );
   }
-
+// Metodo guardarConexion: Guarda la conexion en el almacenamiento local de la maquina y crea una lista con las conexiones ingresadas
   guardarConexion() {
     var listaConexiones = JSON.parse(
       localStorage.getItem("listaConexiones") || "[]"

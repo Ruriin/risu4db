@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import {MConexionesPage} from '../../pages/m-conexiones/m-conexiones';
 import {IConexionPage} from '../../pages/i-conexion/i-conexion';
 import {MTablasPage} from '../../pages/m-tablas/m-tablas';
@@ -15,7 +15,9 @@ export class HomePage {
   mTablas:any;
   mPrincipal:any;
 
-  constructor(public navCtrl: NavController) {
+
+  constructor(public navCtrl: NavController) 
+  {
     this.iConexion = IConexionPage;
     this.mConexiones=MConexionesPage;
     this.mTablas=MTablasPage;

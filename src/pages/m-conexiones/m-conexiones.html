@@ -9,29 +9,42 @@
     <ion-title>MConexiones</ion-title>
   </ion-navbar>
 </ion-header>
+<!-- Pagina para vizualizar las conexiones disponibles -->
+  <ion-content>
+    <ion-grid fixed>
+        <ion-row>  
+          <ion-col col-lg-12>
+            <h1>Desliza hacia la izquierda para ver las opciones</h1> 
+          </ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-col col-lg-12>
+          <ion-list>
+            <!-- Por cada conexion se crea un item de lista con sus controladores correspondientes -->
+            <ion-item-sliding *ngFor="let item of items">
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img src="../../assets/imgs/conexion.png">
+                  </ion-avatar>
+                  <h2>{{item.nombre}}</h2>
+                  <p>Direccion IP: {{item.host}}</p>
+                </ion-item>
+                <ion-item-options side="right">
+                  <!-- Llama al metodo conexionHost() -->
+                  <button ion-button color="secondary" (click)="conexionHost(item)">
+                    <ion-icon name="md-wifi"></ion-icon>
+                    Conectar
+                  </button>
+                  <!-- Llama al metodo borrarConexion() -->
+                  <button ion-button color="danger" (click)="borrarConexion(item)">
+                    <ion-icon name="md-trash"></ion-icon>
+                    Borrar
+                  </button>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-content>
 
-<ion-content padding>
-  <h1>Desliza hacia la izquierda para ver las opciones</h1> 
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of items">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="../../assets/imgs/conexion.png">
-        </ion-avatar>
-        <h2>{{item.nombre}}</h2>
-        <p>Direccion IP: {{item.host}}</p>
-      </ion-item>
-        <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="conexionHost(item)">
-          <ion-icon name="md-wifi"></ion-icon>
-          Conectar
-        </button>
-        <button ion-button color="danger" (click)="borrarConexion(item)">
-          <ion-icon name="md-trash"></ion-icon>
-          Borrar
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-  
-</ion-content>

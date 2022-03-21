@@ -9,34 +9,48 @@
     <ion-title>MTablas</ion-title>
   </ion-navbar>
 </ion-header>
-
+<!-- Pagina para visualizar las tablas de una base de datos -->
 <ion-content padding>
-  <h1>Desliza hacia los lados derecha para ver las opciones</h1>
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of items">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="../../assets/imgs/tabla-de-datos.png">
-        </ion-avatar>
-        <h2>{{item}}</h2>
-        <p>Direccion IP: 192.168.1.1</p>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary">
-            <ion-icon name="md-help"></ion-icon>
-            Consultar 
-          </button>
-          <button ion-button color="secondary">
-            <ion-icon name="md-brush"></ion-icon>
-            Modificar
-          </button>
-      </ion-item-options>
-      <ion-item-options side="left">
-        <button ion-button color="danger">
-            <ion-icon name="md-trash"></ion-icon>
-            Borrar
-          </button>
-        </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h1>Desliza hacia los lados derecha para ver las opciones</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-list>
+          <!-- Por cada tabla se crea un objeto con sus respectivos metodos -->
+            <ion-item-sliding *ngFor="let item of items">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img src="../../assets/imgs/tabla-de-datos.png">
+                </ion-avatar>
+                <h2>{{item}}</h2>
+                <p>Direccion IP: 192.168.1.1</p>
+              </ion-item>
+              <ion-item-options side="right">
+                <!-- Llama al metodo Consultar -->
+            <button ion-button color="primary">
+              <ion-icon name="md-help"></ion-icon>
+              Consultar 
+            </button>
+            <!-- Llama el metodo  Modificar-->
+            <button ion-button color="secondary">
+              <ion-icon name="md-brush"></ion-icon>
+              Modificar
+            </button>
+          </ion-item-options>
+          <ion-item-options side="left">
+            <button ion-button color="danger">
+              <!-- Llama el metodo Borrar -->
+              <ion-icon name="md-trash"></ion-icon>
+              Borrar
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
 </ion-content>

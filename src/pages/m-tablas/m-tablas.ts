@@ -21,16 +21,16 @@ export class MTablasPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiRisU: ApiRisuProvider) {
   }
-
+// Metodo para cargar la pagina
   ionViewDidLoad() {
     console.log('ionViewDidLoad MTablasPage');
   }
-
+// Cuando se crea la pagina se comprueba la conexion actual y que los datos de la conexion no esten vacios
   ionViewDidEnter() {
     const datosConexion = JSON.parse(localStorage.getItem("conexionActual"));
     datosConexion != null ? this.infoDB(datosConexion[0]) : this.items = null;
   }
-
+// Con los datos de la conexion se obtienen las tablas de la respectiva base de datos
   infoDB(datosConexion) {
     this.apiRisU.obtenerBD(datosConexion).then(
       (result) => {
