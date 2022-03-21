@@ -6,22 +6,169 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Risu4DB</ion-title>
+     <ion-title>Risu4DB</ion-title>
   </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="puppies">
+        Generador
+      </ion-segment-button>
+      <ion-segment-button value="kittens">
+        Resultados
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 <!-- Pagina principal -->
-  <ion-content>
-    <ion-grid fixed>
-      <ion-row>  
-        <div class="texto">
-          <p class="titulo">Bienvenido al asistente de consultas de bases de datos</p>
-          <p class="creditos">Desarrollado por Rodrigo Solís Avila y Elias Garcia Aguilar </p>
-        </div>
-      </ion-row> 
-  </ion-grid>
-    
-  </ion-content>
+<ion-content >
+  <div [ngSwitch]="pet">
+     <ion-list *ngSwitchCase="'puppies'">
+   <ion-list inset>
+      <ion-item>
+         <ion-label>Elija la sintaxis</ion-label>
+         <ion-select [(ngModel)]="sintaxis" okText="Aceptar" cancelText="Cancelar" #estate ngModel name="estate" (ionChange)="generarSintaxis($event)">
+         <ion-option value="SELECT">Seleccionar</ion-option>
+         <ion-option value="INSERT INTO">Insertar</ion-option>
+         <ion-option value="UPDATE">Actualizar</ion-option>
+         <ion-option value="DELETE FROM">Borrar</ion-option>
+         </ion-select>
+      </ion-item>
+   </ion-list>
+   <ion-card *ngFor="let att of columnas; let idx = index">
+      <ion-list *ngIf="estate.value === 'SELECT'">
+         <ion-item>
+            <ion-label>Columna1</ion-label>
+            <ion-select [(ngModel)]="tabla[idx].tabla" (ionChange)="columnasTabla($event, idx)" #item>
+            <ion-option value="{{ tablas }}" *ngFor="let tablas of dataTablas">{{ tablas }}</ion-option>
+            </ion-select>
+            <ion-select [(ngModel)]="columnas[idx].columnas" multiple #item>
+            <ion-option value="{{ columna }}" *ngFor="let columna of dataColumnas[idx]">{{ columna }}</ion-option>
+            </ion-select>
+         </ion-item>
+         <ion-list>
+            <ion-item>
+               <button ion-button medium (click)="borrarColumna(idx)" *ngIf="idx > 0">Borrar</button>
+               <button ion-button medium (click)="agregarColumna()">Agregar</button>
+            </ion-item>
+         </ion-list>
+      </ion-list>
+      <ion-list *ngIf="estate.value === 'INSERT INTO'">
+        <ion-item>
+           <ion-label>Tabla</ion-label>
+           <ion-select [(ngModel)]="tabla[idx].tabla" (ionChange)="columnasTabla($event, idx)" #item>
+           <ion-option value="{{ tablas }}" *ngFor="let tablas of dataTablas">{{ tablas }}</ion-option>
+           </ion-select>
+        </ion-item>
+        <ion-item *ngFor="let columna of dataColumnas[idx];let indice = index">
+           <ion-label stacked>{{ columna }}</ion-label>
+           <ion-input type="text" class="input" [(ngModel)]="columnasInsertar[indice].columnas"></ion-input> 
+        </ion-item>
+        <button ion-button (click)="insertarRegistro()" *ngIf="estate.value === 'INSERT INTO'">Insertar Registro</button>
+
+     </ion-list>
+     <ion-list *ngIf="estate.value === 'UPDATE'">
+        <ion-item>
+           <ion-label>Tabla</ion-label>
+           <ion-select [(ngModel)]="tabla[idx].tabla" (ionChange)="columnasTabla($event, idx)" #item>
+           <ion-option value="{{ tablas }}" *ngFor="let tablas of dataTablas">{{ tablas }}</ion-option>
+           </ion-select>
+           <ion-select [(ngModel)]="columnas[idx].columnas" multiple #item (ionChange)="columnasActualizar()">
+              <ion-option value="{{ columna }}" *ngFor="let columna of dataColumnas[idx]">{{ columna }}</ion-option>
+           </ion-select>
+        </ion-item>
+
+        <ion-item *ngFor="let columna of columnas[idx].columnas;let idn = index">
+           <ion-label stacked>{{ columna }}</ion-label>
+           <ion-input type="text" class="input" [(ngModel)]="valoresColumnasActualizar[idn].valor"></ion-input> 
+        </ion-item>
+        <ion-label stacked>Condicion</ion-label>
+        <ion-item>
+           <ion-label stacked>Elegir Columna</ion-label>
+           <ion-select [(ngModel)]="condicionWhere[idx].columna" #item>
+              <ion-option value="{{ columna }}" *ngFor="let columna of dataColumnas[idx]">{{ columna }}</ion-option>
+           </ion-select>
+        </ion-item>
+        <ion-label stacked>Columna sea igual a</ion-label>
+        <ion-input type="text" class="input" [(ngModel)]="condicionWhere[idx].valor"></ion-input> 
 
 
+        <button ion-button (click)="actualizarRegistro()" *ngIf="estate.value === 'UPDATE'">Actualizar Registro</button>
 
+     </ion-list>
+     <ion-list *ngIf="estate.value === 'DELETE FROM'">
+        <ion-item>
+           <ion-label>Tabla</ion-label>
+           <ion-select [(ngModel)]="tabla[idx].tabla" (ionChange)="columnasTabla($event, idx)" #item>
+           <ion-option value="{{ tablas }}" *ngFor="let tablas of dataTablas">{{ tablas }}</ion-option>
+           </ion-select>
+        </ion-item>
 
+        <ion-label stacked>Condicion</ion-label>
+        <ion-item>
+           <ion-label stacked>Elegir Columna</ion-label>
+           <ion-select [(ngModel)]="condicionWhere[idx].columna" #item>
+              <ion-option value="{{ columna }}" *ngFor="let columna of dataColumnas[idx]">{{ columna }}</ion-option>
+           </ion-select>
+        </ion-item>
+        <ion-label stacked>Columna sea igual a</ion-label>
+        <ion-input type="text" class="input" [(ngModel)]="condicionWhere[idx].valor"></ion-input> 
+
+        <button ion-button (click)="borrarRegistro()" *ngIf="estate.value === 'DELETE FROM'">Borrar Registro</button>
+
+     </ion-list>
+   </ion-card>
+   <button ion-button (click)="generarUnion()" *ngIf="estate.value === 'SELECT'">Agregar Union</button>
+   <ion-card *ngFor="let att of union; let idx = index">
+      <ion-list inset>
+         <ion-item>
+            <ion-label>Tipo de Union</ion-label>
+            <ion-select [(ngModel)]="union[idx].union" okText="Aceptar" cancelText="Cancelar">
+            <ion-option value="inner join">Unir Internamente</ion-option>
+            <ion-option value="outer join">Uníon Externa</ion-option>
+            <ion-option value="left join">Unir a la Izquierda</ion-option>
+            <ion-option value="right join">Unir a la Derecha</ion-option>
+            </ion-select>
+         </ion-item>
+      </ion-list>
+      <ion-item>
+         <ion-label>Columna</ion-label>
+         <ion-select [(ngModel)]="tabla_union[idx].tabla_union" (ionChange)="unionTabla(idx, indiceUnion)">
+         <ion-option value="{{ lista_tabla.tabla }}" *ngFor="let lista_tabla of tabla;let ide = index" (ionSelect)="indiceUnion = ide">{{ lista_tabla.tabla }}</ion-option>
+         </ion-select>
+         <ion-select [(ngModel)]="tabla_union[idx].columna_union">
+         <ion-option value="{{ lista_columnas }}" *ngFor="let lista_columnas of dataColumnasUnion[idx].columnas">{{ lista_columnas }}</ion-option>
+         </ion-select>
+      </ion-item>
+      <ion-item>
+         <ion-label>En</ion-label>
+      </ion-item>
+      <ion-item>
+         <ion-label>Columna</ion-label>
+         <ion-select [(ngModel)]="columna_union[idx].on_tabla_union" (ionChange)="unionTablaOn(idx, indiceUnionOn)">
+         <ion-option value="{{ lista_tabla.tabla }}" *ngFor="let lista_tabla of tabla;let ide2 = index" (ionSelect)="indiceUnionOn = ide2">{{ lista_tabla.tabla }}</ion-option>
+         </ion-select>
+         <ion-select [(ngModel)]="columna_union[idx].on_columna_union">
+         <ion-option value="{{ lista_columnas }}" *ngFor="let lista_columnas of dataColumnasUnionOn[idx].columnas">{{ lista_columnas }}</ion-option>
+         </ion-select>
+      </ion-item>
+      <ion-item>
+         <button ion-button (click)="agregarColumnaUnion()">Agregar</button>
+         <button ion-button (click)="borrarColumnaUnion(idx)">Borrar</button>
+      </ion-item>
+   </ion-card>
+   <button ion-button (click)="generarCondicion()" *ngIf="estate.value === 'SELECT'">Agregar Condicion</button>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'kittens'">
+     
+
+      <ion-item *ngFor="let item of resultado_consulta">      
+        <span *ngIf="getKeys(item)">
+         <div *ngFor="let key of resultado_consulta_indices">
+             {{key}} :  {{item[key]}}              
+            </div> 
+         </span>
+     </ion-item>
+  </ion-list>
+  </div>
+</ion-content>

@@ -33,7 +33,7 @@ export class IConexionPage {
     console.log("ionViewDidLoad IConexionPage");
   }
 // Metodo de mostrar alerta
-  showAlert(info) {
+  mostrarMensaje(info) {
     const alert = this.alertCtrl.create({
       title: "¡Info!",
       subTitle: info,
@@ -45,7 +45,7 @@ export class IConexionPage {
   probarConexion() {
     this.apiRisU.pruebaConexion(this.datosConexion).then(
       (result) => {
-        this.showAlert(result);
+        this.mostrarMensaje(result);
       },
       (err) => {
         console.log(err);
